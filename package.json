@@ -1,47 +1,27 @@
 {
-<<<<<<< HEAD
   "name": "portfolio",
-=======
-  "name": "fabconnect-react",
->>>>>>> origin/main
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-<<<<<<< HEAD
     "build": "tsc -b && vite build",
-=======
-    "build": "vite build",
->>>>>>> origin/main
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@radix-ui/react-slot": "^1.2.4",
     "class-variance-authority": "^0.7.1",
-=======
->>>>>>> origin/main
     "clsx": "^2.1.1",
     "framer-motion": "^12.38.0",
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-<<<<<<< HEAD
-=======
-    "react-router-dom": "^7.13.1",
-    "recharts": "^3.8.0",
->>>>>>> origin/main
     "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",
-<<<<<<< HEAD
     "@types/node": "^24.12.0",
-=======
-    "@tailwindcss/postcss": "^4.2.1",
->>>>>>> origin/main
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.0",
@@ -51,13 +31,9 @@
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.4.0",
     "postcss": "^8.5.8",
-<<<<<<< HEAD
     "tailwindcss": "^3.4.17",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.56.1",
-=======
-    "tailwindcss": "^4.2.1",
->>>>>>> origin/main
     "vite": "^8.0.0"
   }
 }
