@@ -44,7 +44,7 @@ export function HeroSection() {
                 className="inline-flex items-center gap-2 rounded-full border-cyan-500/30 bg-cyan-500/10 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-cyan-300"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                Available for Internship
+                Available for Internship And Work
               </Badge>
 
               <div className="space-y-4">
@@ -54,7 +54,7 @@ export function HeroSection() {
                   transition={{ duration: 0.5, delay: 0.1 }}
                   className="text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
                 >
-                  Fariss <span className="gradient-text">Mohamed</span>
+                  Fariss <span className="gradient-text">Achraf</span>
                 </motion.h1>
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
@@ -72,8 +72,8 @@ export function HeroSection() {
                 >
                   Industrial Innovation, Quality Improvement & Digital
                   Transformation Enthusiast. A rigorous and proactive engineer
-                  bridging the gap between industrial management and cutting-edge
-                  digital tools.
+                  bridging the gap between industrial management and
+                  cutting-edge digital tools.
                 </motion.p>
               </div>
 
@@ -85,15 +85,18 @@ export function HeroSection() {
               >
                 {[
                   { value: "ISO 9001", label: "Auditor Certified" },
-                  { value: "Power BI", label: "Dashboard Expert" },
                   { value: "ENSAM", label: "Rabat Graduate" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
                     className="glass rounded-2xl p-4 text-center"
                   >
-                    <p className="text-sm font-bold gradient-text">{stat.value}</p>
-                    <p className="text-xs text-foreground/50 mt-1">{stat.label}</p>
+                    <p className="text-sm font-bold gradient-text">
+                      {stat.value}
+                    </p>
+                    <p className="text-xs text-foreground/50 mt-1">
+                      {stat.label}
+                    </p>
                   </div>
                 ))}
               </motion.div>
@@ -146,7 +149,7 @@ export function HeroSection() {
                     <div className="absolute inset-0 rounded-full bg-cyan-400/20 blur-2xl scale-150" />
                     <img
                       src={heroImage}
-                      alt="Fariss Mohamed - Professional photo"
+                      alt="Fariss Achraf - Professional photo"
                       className="relative w-36 h-36 rounded-full border-2 border-cyan-500/40 object-cover shadow-[0_25px_60px_rgba(34,179,179,0.25)]"
                     />
                     <span className="absolute bottom-1 right-1 w-4 h-4 rounded-full bg-emerald-400 border-2 border-background" />
@@ -157,7 +160,9 @@ export function HeroSection() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
                   >
-                    <h2 className="text-2xl font-bold text-white">Fariss Mohamed</h2>
+                    <h2 className="text-2xl font-bold text-white">
+                      Fariss Achraf
+                    </h2>
                     <p className="text-xs font-semibold uppercase tracking-[0.3em] text-cyan-400/70 mt-1">
                       ENSAM Rabat | Morocco
                     </p>
@@ -180,9 +185,21 @@ export function HeroSection() {
                     className="w-full space-y-2"
                   >
                     {[
-                      { label: "Email", value: "Achraf_fariss@um5.ac.ma", href: "mailto:Achraf_fariss@um5.ac.ma" },
-                      { label: "Phone", value: "+212 651 120 806", href: "tel:+212651120806" },
-                      { label: "Location", value: "Morocco", href: "https://maps.google.com/?q=Morocco" },
+                      {
+                        label: "Email",
+                        value: "Achraf_fariss@um5.ac.ma",
+                        href: "mailto:Achraf_fariss@um5.ac.ma",
+                      },
+                      {
+                        label: "Phone",
+                        value: "+212 651 120 806",
+                        href: "tel:+212651120806",
+                      },
+                      {
+                        label: "Location",
+                        value: "Morocco",
+                        href: "https://maps.google.com/?q=Morocco",
+                      },
                     ].map((item) => (
                       <a
                         key={item.label}
@@ -190,8 +207,12 @@ export function HeroSection() {
                         className="flex items-center justify-between w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-left hover:bg-white/10 hover:border-white/20 transition-all group"
                       >
                         <div>
-                          <p className="text-xs text-foreground/40 font-medium">{item.label}</p>
-                          <p className="text-sm text-foreground/80">{item.value}</p>
+                          <p className="text-xs text-foreground/40 font-medium">
+                            {item.label}
+                          </p>
+                          <p className="text-sm text-foreground/80">
+                            {item.value}
+                          </p>
                         </div>
                         <ArrowUpRight className="h-3.5 w-3.5 text-foreground/30 group-hover:text-cyan-400 transition-colors" />
                       </a>

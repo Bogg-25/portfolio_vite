@@ -1,5 +1,5 @@
 ﻿import { motion } from "framer-motion";
-import { Mail, Phone, MapPin, Linkedin, Github, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Send } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -28,9 +28,8 @@ const contactItems = [
 ];
 
 const socialLinks = [
-  { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/", hint: "Connect with me" },
-  { Icon: Github, label: "GitHub", href: "https://github.com/", hint: "View my code" },
-];
+  { Icon: Linkedin, label: "LinkedIn", href: "https://linkedin.com/in/achraffariss", hint: "Connect with me" },
+  ];
 
 export function ContactSection() {
   return (

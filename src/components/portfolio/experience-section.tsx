@@ -11,10 +11,24 @@ const experiences = [
     type: "Internship",
     color: "cyan",
     achievements: [
-      "Improved the quality management system within the reception quality department",
-      "Standardized inspection instructions in compliance with IATF 16949 and ISO 9001",
-      "Developed a non-conformity tracking web application using HTML, CSS, JavaScript, and Python",
-      "Designed a Power BI dashboard for real-time monitoring of quality KPIs and supplier evaluation",
+      "Enhanced the Quality Management System in the Receiving Department in compliance with IATF 16949:2016 and ISO 9001:2015 standards",
+      "Standardized documentation by revising 6 Quality Control Instructions and developing a new procedure for the Ci62 spectrophotometer, reducing inspection time from 14 to 8 minutes and interpretation errors by 60%",
+      "Designed and deployed a full-stack web application (HTML, CSS, JavaScript, Python Flask, SQL Server) replacing manual Excel tracking for non-conformity management, reducing search time by 91% and data entry errors by 96%",
+      "Developed a Power BI dashboard for real-time monitoring of supplier quality KPIs, identifying critical suppliers, increasing satisfaction rate from 42% to 95%, and reducing processing time by 45%",
+    ],
+  },
+  {
+    role: "Maritime Electronics Intern ",
+    company: "Soremar Holding",
+    location: "Agadir, Morocco",
+    period: "07/2022",
+    type: "Internship",
+    color: "cyan",
+    achievements: [
+      "Gained hands-on exposure to maritime electronic systems including communication, navigation, and surveillance equipment",
+      "Observed maintenance, installation, and troubleshooting processes of onboard electronic systems under supervision of experienced technicians",
+      "Developed understanding of system diagnostics, equipment inspection, and operational requirements of marine vessels",
+      "Enhanced teamwork and technical awareness by collaborating with professionals in a real industrial environment",
     ],
   },
   {
@@ -48,7 +62,10 @@ export function ExperienceSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <Badge variant="outline" className="mb-4 border-cyan-500/30 text-cyan-300">
+          <Badge
+            variant="outline"
+            className="mb-4 border-cyan-500/30 text-cyan-300"
+          >
             Experience
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -76,8 +93,12 @@ export function ExperienceSection() {
                     <Briefcase className="h-5 w-5 text-cyan-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">{exp.role}</h3>
-                    <p className="text-base font-medium text-cyan-300/80">{exp.company}</p>
+                    <h3 className="text-xl font-semibold text-white">
+                      {exp.role}
+                    </h3>
+                    <p className="text-base font-medium text-cyan-300/80">
+                      {exp.company}
+                    </p>
                   </div>
                 </div>
                 <Badge
@@ -121,5 +142,3 @@ export function ExperienceSection() {
     </section>
   );
 }
-
-

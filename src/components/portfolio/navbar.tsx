@@ -30,7 +30,9 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/80 backdrop-blur-xl border-b border-white/5 py-3" : "py-5"
+        scrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-white/5 py-3"
+          : "py-5"
       }`}
     >
       <div className="mx-auto max-w-6xl px-6 flex items-center justify-between">
@@ -45,7 +47,9 @@ export function Navbar() {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
             <span className="text-xs font-bold text-white">FM</span>
           </div>
-          <span className="text-sm font-semibold text-white hidden sm:block">Fariss Mohamed</span>
+          <span className="text-sm font-semibold text-white hidden sm:block">
+            Fariss Achraf
+          </span>
         </motion.div>
 
         {/* Desktop nav */}
@@ -72,14 +76,18 @@ export function Navbar() {
             href="mailto:Achraf_fariss@um5.ac.ma"
             className="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 px-4 py-2 rounded-full transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40"
           >
-            Hire Me
+            Contact Me
           </a>
           <button
             className="md:hidden text-foreground/70 hover:text-white transition-colors p-1"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle navigation"
           >
-            {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {mobileOpen ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <Menu className="h-5 w-5" />
+            )}
           </button>
         </div>
       </div>

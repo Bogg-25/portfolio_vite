@@ -3,10 +3,26 @@ import { User, Target, Globe, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 const traits = [
-  { icon: Target, label: "Rigorous", desc: "Strong attention to standards and detail in quality processes" },
-  { icon: Zap, label: "Proactive", desc: "Anticipates challenges and drives solutions before they escalate" },
-  { icon: User, label: "Collaborative", desc: "Thrives in cross-functional teams, fostering open communication" },
-  { icon: Globe, label: "Multilingual", desc: "Arabic, Tamazight, French, English, and basic German" },
+  {
+    icon: Target,
+    label: "Rigorous",
+    desc: "Strong attention to standards and detail in quality processes",
+  },
+  {
+    icon: Zap,
+    label: "Proactive",
+    desc: "Anticipates challenges and drives solutions before they escalate",
+  },
+  {
+    icon: User,
+    label: "Collaborative",
+    desc: "Thrives in cross-functional teams, fostering open communication",
+  },
+  {
+    icon: Globe,
+    label: "Multilingual",
+    desc: "Arabic, Tamazight, French, English, and basic German",
+  },
 ];
 
 export function AboutSection() {
@@ -20,7 +36,10 @@ export function AboutSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <Badge variant="outline" className="mb-4 border-cyan-500/30 text-cyan-300">
+          <Badge
+            variant="outline"
+            className="mb-4 border-cyan-500/30 text-cyan-300"
+          >
             About Me
           </Badge>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -28,9 +47,9 @@ export function AboutSection() {
             <span className="gradient-text">Portfolio</span>
           </h2>
           <p className="text-foreground/60 max-w-2xl mx-auto text-base leading-relaxed">
-            A dual-discipline engineer bridging industrial management and digital
-            innovation, with a passion for quality systems and data-driven
-            transformation.
+            A dual-discipline engineer bridging industrial management and
+            digital innovation, with a passion for quality systems and
+            data-driven transformation.
           </p>
         </motion.div>
 
@@ -43,14 +62,17 @@ export function AboutSection() {
             transition={{ duration: 0.6 }}
             className="glass-card p-8 space-y-6"
           >
-            <h3 className="text-xl font-semibold text-white">Professional Summary</h3>
+            <h3 className="text-xl font-semibold text-white">
+              Professional Summary
+            </h3>
             <div className="space-y-4 text-foreground/70 leading-relaxed">
               <p>
-                I'm a Master's student in Management of Innovation and Technology
-                at <span className="text-cyan-300 font-medium">ENSAM Rabat</span>,
-                building on a solid foundation in Industrial Engineering from FST
-                Tanger. My journey spans from hands-on quality internships in
-                automotive manufacturing to leading student clubs focused on
+                I'm a Master's student in Management of Innovation and
+                Technology at{" "}
+                <span className="text-cyan-300 font-medium">ENSAM Rabat</span>,
+                building on a solid foundation in Industrial Engineering from
+                FST Tanger. My journey spans from hands-on quality internships
+                in automotive manufacturing to leading student clubs focused on
                 personal development.
               </p>
               <p>
@@ -63,13 +85,13 @@ export function AboutSection() {
                 <span className="text-blue-300 font-medium">
                   IATF 16949 &amp; ISO 9001
                 </span>
-                , built a web-based non-conformity tracker, and designed a
-                Power BI KPI dashboard - all from a single four-month internship.
+                , built a web-based non-conformity tracker, and designed a Power
+                BI KPI dashboard - all from a single two-month internship.
               </p>
               <p>
-                My approach combines the precision of industrial quality management
-                with modern digital tools: Python, Power BI, HTML/CSS/JS, and
-                emerging domains like AI and Data Mining.
+                My approach combines the precision of industrial quality
+                management with modern digital tools: Python, Power BI,
+                HTML/CSS/JS, and emerging domains like AI and Data Mining.
               </p>
             </div>
 
@@ -117,8 +139,12 @@ export function AboutSection() {
                     <Icon className="h-5 w-5 text-cyan-400" />
                   </div>
                   <div>
-                    <p className="font-semibold text-white text-sm">{trait.label}</p>
-                    <p className="text-xs text-foreground/55 leading-relaxed mt-1">{trait.desc}</p>
+                    <p className="font-semibold text-white text-sm">
+                      {trait.label}
+                    </p>
+                    <p className="text-xs text-foreground/55 leading-relaxed mt-1">
+                      {trait.desc}
+                    </p>
                   </div>
                 </motion.div>
               );
@@ -129,5 +155,3 @@ export function AboutSection() {
     </section>
   );
 }
-
-

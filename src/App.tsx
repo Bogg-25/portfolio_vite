@@ -19,7 +19,7 @@ function Footer() {
             <span className="text-xs font-bold text-white">FM</span>
           </div>
           <span className="text-sm font-medium text-foreground/50">
-            Fariss Mohamed - Innovation & Technology Management
+            Fariss Achraf - Innovation & Technology Management
           </span>
         </div>
         <div className="flex items-center gap-5 text-sm text-foreground/40">
@@ -40,7 +40,7 @@ function Footer() {
           </a>
         </div>
         <p className="text-xs text-foreground/25">
-          (c) {new Date().getFullYear()} Fariss Mohamed. All rights reserved.
+          (c) {new Date().getFullYear()} Fariss Achraf. All rights reserved.
         </p>
       </div>
     </footer>
