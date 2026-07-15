@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
   Briefcase,
   GraduationCap,
+  Trophy,
   type LucideIcon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +26,7 @@ export type Project = {
   longDescription?: string;
   tags: string[];
   color: string;
-  category: "enterprise" | "academic";
+  category: "enterprise" | "academic" | "hackathon";
   url?: string;
   pdfUrl?: string;
   certUrl?: string;
@@ -204,6 +205,27 @@ const colorMap: Record<
   },
 };
 
+const categoryMap: Record<
+  Project["category"],
+  { label: string; className: string; icon: LucideIcon }
+> = {
+  enterprise: {
+    label: "Enterprise",
+    className: "border-cyan-500/30 bg-cyan-500/10 text-cyan-300",
+    icon: Briefcase,
+  },
+  academic: {
+    label: "Academic",
+    className: "border-amber-500/30 bg-amber-500/10 text-amber-300",
+    icon: GraduationCap,
+  },
+  hackathon: {
+    label: "Hackathon",
+    className: "border-blue-500/30 bg-blue-500/10 text-blue-300",
+    icon: Trophy,
+  },
+};
+
 // ─── Intersection Observer Hook ───────────────────────────────────────────────
 
 function useInView(threshold = 0.15) {
@@ -242,6 +264,8 @@ function ProjectCard({
   const { ref, isInView } = useInView(0.1);
   const Icon = project.icon;
   const c = colorMap[project.color];
+  const category = categoryMap[project.category];
+  const CategoryIcon = category.icon;
   const hasDetails =
     project.features ||
     project.role ||
@@ -293,17 +317,10 @@ function ProjectCard({
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1.5">
               <span
-                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${project.category === "enterprise"
-                  ? "border-cyan-500/30 bg-cyan-500/10 text-cyan-300"
-                  : "border-amber-500/30 bg-amber-500/10 text-amber-300"
-                  }`}
+                className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border ${category.className}`}
               >
-                {project.category === "enterprise" ? (
-                  <Briefcase className="h-2.5 w-2.5" />
-                ) : (
-                  <GraduationCap className="h-2.5 w-2.5" />
-                )}
-                {project.category === "enterprise" ? "Enterprise" : "Academic"}
+                <CategoryIcon className="h-2.5 w-2.5" />
+                {category.label}
               </span>
             </div>
             <h3 className="text-base md:text-lg font-bold text-white leading-snug">
