@@ -139,7 +139,7 @@ export function HeroSection() {
 
         {/* Photo Container */}
         <div className="flex-1 flex items-center justify-center relative md:-left-4 mt-12 md:mt-0">
-          <div className="relative max-w-lg w-full h-[450px] md:h-[680px]">
+          <div className="relative max-w-xl w-full h-[500px] md:h-[780px]">
             <motion.img
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
