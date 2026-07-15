@@ -67,30 +67,22 @@ export function AboutSection() {
             </h3>
             <div className="space-y-4 text-foreground/70 leading-relaxed">
               <p>
-                I'm a Master's student in Management of Innovation and
-                Technology at{" "}
-                <span className="text-cyan-300 font-medium">ENSAM Rabat</span>,
-                with a background in Industrial Engineering from FST Tangier. I
-                am passionate about combining technology, innovation, and
-                leadership to create impactful solutions.
-              </p>
-              <p>
-                At{" "}
-                <span className="text-cyan-300 font-medium">
-                  Lear Corporation TRIM 1
-                </span>{" "}
-                (TFZ Tangier), I contributed to standardizing inspection
-                protocols under{" "}
-                <span className="text-blue-300 font-medium">
-                  IATF 16949 &amp; ISO 9001
-                </span>
-                , built a web-based non-conformity tracker, and designed a Power
-                BI KPI dashboard - all from a single two-month internship.
-              </p>
-              <p>
-                My approach combines the precision of industrial quality
-                management with modern digital tools: Python, Power BI,
-                HTML/CSS/JS, and emerging domains like AI and Data Mining.
+                Innovation-driven engineer-in-training combining{" "}
+                <span className="text-cyan-300 font-medium">industrial expertise</span>{" "}
+                with{" "}
+                <span className="text-blue-300 font-medium">technological fluency</span>.
+                Adept at translating quality and process challenges into{" "}
+                <span className="text-cyan-300 font-medium">scalable digital solutions</span>{" "}
+                — from{" "}
+                <span className="text-blue-300 font-medium">Power BI dashboards</span>{" "}
+                to{" "}
+                <span className="text-cyan-300 font-medium">full-stack applications</span>{" "}
+                — consistently driving{" "}
+                <span className="text-emerald-300 font-semibold">efficiency gains above 40%</span>.
+                Passionate about{" "}
+                <span className="text-blue-300 font-medium">Industry 4.0</span>,{" "}
+                <span className="text-cyan-300 font-medium">continuous improvement</span>,
+                and building tools that make operations smarter.
               </p>
             </div>
 

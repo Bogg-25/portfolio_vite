@@ -7,6 +7,7 @@ import { ProjectsSection } from "@/components/portfolio/projects-section";
 import { SkillsSection } from "@/components/portfolio/skills-section";
 import { CertificationsSection } from "@/components/portfolio/certifications-section";
 import { LeadershipSection } from "@/components/portfolio/leadership-section";
+import { ConferencesSection } from "@/components/portfolio/conferences-section";
 import { GallerySection } from "@/components/portfolio/gallery-section";
 import { ContactSection } from "@/components/portfolio/contact-section";
 import { Mail, ArrowUpRight } from "lucide-react";
@@ -25,11 +26,11 @@ function Footer() {
         </div>
         <div className="flex items-center gap-5 text-sm text-foreground/40">
           <a
-            href="mailto:Achraf_fariss@um5.ac.ma"
+            href="mailto:farissachraf@hotmail.com"
             className="hover:text-cyan-300 transition-colors flex items-center gap-1"
           >
             <Mail className="h-3.5 w-3.5" />
-            <span>Achraf_fariss@um5.ac.ma</span>
+            <span>farissachraf@hotmail.com</span>
           </a>
           <a
             href="https://linkedin.com/in/achraffariss"
@@ -61,6 +62,7 @@ function App() {
         <SkillsSection />
         <CertificationsSection />
         <LeadershipSection />
+        <ConferencesSection />
         <GallerySection />
         <ContactSection />
       </main>

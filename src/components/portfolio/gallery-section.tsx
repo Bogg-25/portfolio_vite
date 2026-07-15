@@ -1,6 +1,6 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Maximize2, Play } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, Camera } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -14,19 +14,16 @@ type Category =
 
 interface Photo {
   id: string;
-  src: string; // image path (or video poster / empty for video-only)
+  src: string;
   title: string;
   category: Exclude<Category, "All">;
   aspect: "portrait" | "landscape" | "square";
-  type?: "photo" | "video"; // defaults to "photo"
-  videoSrc?: string; // path to .mp4 for video items
-  objectFit?: "cover" | "contain"; // defaults to "cover"
+  objectFit?: "cover" | "contain";
 }
 
 // ─── Seed Data ────────────────────────────────────────────────────────────────
 
 const SEED_PHOTOS: Photo[] = [
-  // ── The Legends Club ──────────────────────────────────────────────────────
   {
     id: "lc1",
     src: "/the legends .jpg",
@@ -51,14 +48,14 @@ const SEED_PHOTOS: Photo[] = [
   {
     id: "lc4",
     src: "/LEGENDS SIENCES WEEK.jpg",
-    title: "Legends Sciences Week ",
+    title: "Legends Sciences Week",
     category: "The Legends Club",
     aspect: "landscape",
   },
   {
     id: "lc5",
     src: "/LGENDS SIENCES WEEK.jpg",
-    title: "Legends Sciences Week ",
+    title: "Legends Sciences Week",
     category: "The Legends Club",
     aspect: "landscape",
   },
@@ -72,40 +69,38 @@ const SEED_PHOTOS: Photo[] = [
   {
     id: "lc7",
     src: "/EVENT LEGENDSXTALK.jpg",
-    title: "Legends × Talk ",
+    title: "Legends × Talk",
     category: "The Legends Club",
     aspect: "landscape",
   },
   {
     id: "lc8",
     src: "/EVENT LGENDSCTALK 2.jpg",
-    title: "Legends × Talk ",
+    title: "Legends × Talk",
     category: "The Legends Club",
     aspect: "landscape",
   },
   {
     id: "lc9",
     src: "/Event LEGENDS XTALK.jpg",
-    title: "Legends × Talk ",
+    title: "Legends × Talk",
     category: "The Legends Club",
     aspect: "landscape",
   },
   {
     id: "lc10",
     src: "/LEGENDS XTALK .jpg",
-    title: "Legends × Talk ",
+    title: "Legends × Talk",
     category: "The Legends Club",
     aspect: "square",
   },
   {
     id: "lc11",
     src: "/LEGNEDSXXTALK.jpg",
-    title: "Legends × Talk ",
+    title: "Legends × Talk",
     category: "The Legends Club",
     aspect: "landscape",
   },
-
-  // ── Internships ───────────────────────────────────────────────────────────
   {
     id: "int1",
     src: "/INTERSHIP LEAR .jpg",
@@ -121,8 +116,6 @@ const SEED_PHOTOS: Photo[] = [
     aspect: "portrait",
     objectFit: "contain",
   },
-
-  // ── Projects ──────────────────────────────────────────────────────────────
   {
     id: "prj1",
     src: "/PFE PRESENTATION.jpg",
@@ -130,8 +123,6 @@ const SEED_PHOTOS: Photo[] = [
     category: "Projects",
     aspect: "landscape",
   },
-
-  // ── Events ────────────────────────────────────────────────────────────────
   {
     id: "ev1",
     src: "/ficat-2024.jpg",
@@ -174,6 +165,13 @@ const SEED_PHOTOS: Photo[] = [
     category: "Events",
     aspect: "landscape",
   },
+  {
+    id: "gitex1",
+    src: "/GItex photo.jpeg",
+    title: "GITEX EVENT 2026",
+    category: "Events",
+    aspect: "landscape",
+  },
 ];
 
 const CATEGORIES: Category[] = [
@@ -184,172 +182,244 @@ const CATEGORIES: Category[] = [
   "Events",
 ];
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
+// ─── Intersection Observer Hook ───────────────────────────────────────────────
 
-function aspectClass(aspect: Photo["aspect"]) {
-  if (aspect === "portrait") return "aspect-[3/4]";
-  if (aspect === "landscape") return "aspect-[16/9]";
-  return "aspect-square";
+function useInView(threshold = 0.15) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isInView, setIsInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsInView(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold]);
+
+  return { ref, isInView };
 }
 
-// ─── Lightbox ─────────────────────────────────────────────────────────────────
+// ─── Lightbox with Navigation ─────────────────────────────────────────────────
 
-function Lightbox({ photo, onClose }: { photo: Photo; onClose: () => void }) {
+function Lightbox({
+  photo,
+  photos,
+  onClose,
+  onNavigate,
+}: {
+  photo: Photo;
+  photos: Photo[];
+  onClose: () => void;
+  onNavigate: (photo: Photo) => void;
+}) {
+  const currentIndex = photos.findIndex((p) => p.id === photo.id);
+
+  const goNext = useCallback(() => {
+    const next = (currentIndex + 1) % photos.length;
+    onNavigate(photos[next]);
+  }, [currentIndex, photos, onNavigate]);
+
+  const goPrev = useCallback(() => {
+    const prev = (currentIndex - 1 + photos.length) % photos.length;
+    onNavigate(photos[prev]);
+  }, [currentIndex, photos, onNavigate]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") goNext();
+      if (e.key === "ArrowLeft") goPrev();
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [onClose]);
+  }, [onClose, goNext, goPrev]);
 
   return (
-    <AnimatePresence>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.25 }}
-        className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={photo.title}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-2xl" />
+
+      {/* Close button */}
+      <button
         onClick={onClose}
-        role="dialog"
-        aria-modal="true"
-        aria-label={photo.title}
+        aria-label="Close"
+        className="absolute top-5 right-5 z-30 w-11 h-11 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 hover:scale-110 transition-all duration-200 backdrop-blur-md"
       >
-        <div className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
+        <X className="h-5 w-5" />
+      </button>
 
-        <motion.div
-          initial={{ scale: 0.92, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.92, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
-          className="relative z-10 max-w-4xl w-full"
-          onClick={(e) => e.stopPropagation()}
-        >
-          <button
-            onClick={onClose}
-            aria-label="Close lightbox"
-            className="absolute -top-4 -right-4 z-20 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors backdrop-blur"
-          >
-            <X className="h-4 w-4" />
-          </button>
+      {/* Counter */}
+      <div className="absolute top-5 left-5 z-30 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md">
+        <span className="text-white/80 text-sm font-medium">
+          {currentIndex + 1} / {photos.length}
+        </span>
+      </div>
 
-          <div className="overflow-hidden rounded-2xl border border-white/10">
-            {photo.type === "video" && photo.videoSrc ? (
-              <video
-                src={photo.videoSrc}
-                controls
-                autoPlay
-                poster={photo.src || undefined}
-                className="w-full max-h-[75vh] object-contain bg-black"
-              />
-            ) : (
-              <img
-                src={photo.src}
-                alt={photo.title}
-                className={`w-full max-h-[75vh] ${photo.objectFit === "contain" ? "object-contain bg-black/20" : "object-cover"}`}
-              />
-            )}
-          </div>
+      {/* Previous button */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          goPrev();
+        }}
+        aria-label="Previous photo"
+        className="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 hover:scale-110 transition-all duration-200 backdrop-blur-md"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
 
-          <div className="mt-4 flex items-center justify-between gap-4">
-            <p className="text-white font-semibold text-lg">{photo.title}</p>
-            <div className="flex items-center gap-2">
-              {photo.type === "video" && (
-                <Badge
-                  variant="outline"
-                  className="border-purple-500/30 bg-purple-500/10 text-purple-300 text-xs whitespace-nowrap"
-                >
-                  Vidéo
-                </Badge>
-              )}
-              <Badge
-                variant="outline"
-                className="border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs whitespace-nowrap"
-              >
-                {photo.category}
-              </Badge>
+      {/* Next button */}
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          goNext();
+        }}
+        aria-label="Next photo"
+        className="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 z-30 w-11 h-11 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/25 hover:scale-110 transition-all duration-200 backdrop-blur-md"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      {/* Image */}
+      <motion.div
+        key={photo.id}
+        initial={{ scale: 0.92, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.92, opacity: 0 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-20 max-w-5xl w-full mx-4 md:mx-0"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-black/60">
+          <img
+            src={photo.src}
+            alt={photo.title}
+            className={`w-full max-h-[78vh] ${
+              photo.objectFit === "contain"
+                ? "object-contain bg-black/30"
+                : "object-cover"
+            }`}
+          />
+        </div>
+
+        {/* Info bar */}
+        <div className="mt-4 flex items-center justify-between gap-4 px-1">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-cyan-500/30 to-blue-600/30 flex items-center justify-center border border-cyan-500/20">
+              <Camera className="h-4 w-4 text-cyan-300" />
             </div>
+            <p className="text-white font-semibold text-base md:text-lg">
+              {photo.title}
+            </p>
           </div>
-        </motion.div>
+          <Badge
+            variant="outline"
+            className="border-cyan-500/30 bg-cyan-500/10 text-cyan-300 text-xs whitespace-nowrap"
+          >
+            {photo.category}
+          </Badge>
+        </div>
       </motion.div>
-    </AnimatePresence>
+    </motion.div>
   );
 }
 
 // ─── Photo Card ───────────────────────────────────────────────────────────────
 
-function PhotoCard({ photo, onClick }: { photo: Photo; onClick: () => void }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const isVideo = photo.type === "video" && !!photo.videoSrc;
+function PhotoCard({
+  photo,
+  onClick,
+  index,
+}: {
+  photo: Photo;
+  onClick: () => void;
+  index: number;
+}) {
+  const { ref, isInView } = useInView(0.1);
 
   return (
     <motion.div
-      layout
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.35 }}
-      whileHover={{ scale: 1.02 }}
-      className={`relative group cursor-pointer overflow-hidden rounded-2xl border border-white/10 ${aspectClass(photo.aspect)} bg-white/5`}
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.6,
+        delay: (index % 6) * 0.08,
+        ease: [0.16, 1, 0.3, 1],
+      }}
+      whileHover={{ y: -6 }}
+      className="group cursor-pointer"
       onClick={onClick}
       role="button"
       tabIndex={0}
-      aria-label={`Open ${isVideo ? "video" : "photo"}: ${photo.title}`}
+      aria-label={`Open photo: ${photo.title}`}
       onKeyDown={(e) => e.key === "Enter" && onClick()}
-      onMouseEnter={() => videoRef.current?.play()}
-      onMouseLeave={() => {
-        if (videoRef.current) {
-          videoRef.current.pause();
-          videoRef.current.currentTime = 0;
-        }
-      }}
     >
-      {isVideo ? (
-        <video
-          ref={videoRef}
-          src={photo.videoSrc}
-          poster={photo.src || undefined}
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      ) : (
+      <div
+        className={`relative overflow-hidden rounded-2xl ${photo.aspect === "portrait" ? "aspect-[3/4]" : photo.aspect === "square" ? "aspect-square" : "aspect-[16/9]"} bg-white/[0.03] border border-white/[0.06] shadow-lg shadow-black/20 hover:shadow-2xl hover:shadow-cyan-500/10 hover:border-cyan-500/20 transition-all duration-500`}
+      >
+        {/* Image */}
         <img
           src={photo.src}
           alt={photo.title}
           loading="lazy"
-          className={`absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105 ${
+          className={`absolute inset-0 w-full h-full transition-all duration-700 ease-out group-hover:scale-110 ${
             photo.objectFit === "contain"
-              ? "object-contain p-2"
+              ? "object-contain p-3"
               : "object-cover"
           }`}
         />
-      )}
 
-      {/* Top-right icon */}
-      {isVideo ? (
-        <div className="absolute top-3 right-3 z-10">
-          <span className="flex items-center gap-1 rounded-full bg-purple-600/80 backdrop-blur border border-purple-400/30 px-2 py-0.5 text-[10px] font-semibold text-white">
-            <Play className="h-3 w-3 fill-white" />
-            Vidéo
-          </span>
-        </div>
-      ) : (
-        <div className="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/40 backdrop-blur border border-white/10 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          <Maximize2 className="h-3.5 w-3.5 text-white" />
-        </div>
-      )}
+        {/* Dark gradient overlay (always visible at bottom, stronger on hover) */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
-        <p className="text-white text-sm font-semibold leading-tight">
-          {photo.title}
-        </p>
-        <span className="mt-1.5 inline-flex self-start items-center rounded-full border border-cyan-500/40 bg-cyan-500/20 px-2.5 py-0.5 text-xs text-cyan-300">
-          {photo.category}
-        </span>
+        {/* Top-right expand icon */}
+        <div className="absolute top-3 right-3 z-10 w-9 h-9 rounded-xl bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-y-0 translate-y-2 transition-all duration-400 shadow-lg">
+          <svg
+            className="h-4 w-4 text-white"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="15 3 21 3 21 9" />
+            <polyline points="9 21 3 21 3 15" />
+            <line x1="21" y1="3" x2="14" y2="10" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+          </svg>
+        </div>
+
+        {/* Bottom info overlay */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-500 ease-out">
+          <p className="text-white text-sm md:text-base font-bold leading-tight tracking-tight drop-shadow-lg">
+            {photo.title}
+          </p>
+          <div className="mt-2 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-400/30 bg-cyan-500/15 px-3 py-1 text-[11px] font-semibold text-cyan-200 backdrop-blur-sm">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+              {photo.category}
+            </span>
+          </div>
+        </div>
       </div>
     </motion.div>
   );
@@ -364,22 +434,21 @@ function MasonryGrid({
   photos: Photo[];
   onOpen: (p: Photo) => void;
 }) {
-  const cols: Photo[][] = [[], [], []];
-  photos.forEach((p, i) => cols[i % 3].push(p));
+  const cols: Photo[][] = [[], [], [], []];
+  photos.forEach((p, i) => cols[i % 4].push(p));
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {cols.map((col, ci) => (
-        <div key={ci} className="flex flex-col gap-4">
-          <AnimatePresence mode="popLayout">
-            {col.map((photo) => (
-              <PhotoCard
-                key={photo.id}
-                photo={photo}
-                onClick={() => onOpen(photo)}
-              />
-            ))}
-          </AnimatePresence>
+        <div key={ci} className="flex flex-col gap-5">
+          {col.map((photo, idx) => (
+            <PhotoCard
+              key={photo.id}
+              photo={photo}
+              onClick={() => onOpen(photo)}
+              index={ci * 10 + idx}
+            />
+          ))}
         </div>
       ))}
     </div>
@@ -407,7 +476,7 @@ export function GallerySection() {
 
   return (
     <section id="gallery" className="section-padding">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         {/* Section heading */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -432,21 +501,42 @@ export function GallerySection() {
         </motion.div>
 
         {/* Filter bar */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setActiveFilter(cat)}
-              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 ${
-                activeFilter === cat
-                  ? "bg-gradient-to-r from-cyan-500 to-blue-600 border-transparent text-white shadow-lg shadow-cyan-500/20"
-                  : "border-white/10 bg-white/5 text-foreground/60 hover:border-white/20 hover:text-white"
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="flex flex-wrap justify-center gap-2.5 mb-10"
+        >
+          {CATEGORIES.map((cat) => {
+            const count =
+              cat === "All"
+                ? photos.length
+                : photos.filter((p) => p.category === cat).length;
+            return (
+              <button
+                key={cat}
+                onClick={() => setActiveFilter(cat)}
+                className={`group/btn relative px-5 py-2.5 rounded-full text-xs font-semibold border transition-all duration-300 ${
+                  activeFilter === cat
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 border-transparent text-white shadow-lg shadow-cyan-500/25"
+                    : "border-white/10 bg-white/[0.04] text-foreground/50 hover:border-white/20 hover:text-white hover:bg-white/[0.08]"
+                }`}
+              >
+                <span>{cat}</span>
+                <span
+                  className={`ml-2 text-[10px] ${
+                    activeFilter === cat
+                      ? "text-white/60"
+                      : "text-foreground/30 group-hover/btn:text-foreground/50"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </motion.div>
 
         {/* Masonry grid */}
         {filtered.length === 0 ? (
@@ -458,10 +548,17 @@ export function GallerySection() {
         )}
       </div>
 
-      {/* Lightbox */}
-      {lightbox && (
-        <Lightbox photo={lightbox} onClose={() => setLightbox(null)} />
-      )}
+      {/* Lightbox with navigation */}
+      <AnimatePresence>
+        {lightbox && (
+          <Lightbox
+            photo={lightbox}
+            photos={filtered}
+            onClose={() => setLightbox(null)}
+            onNavigate={setLightbox}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }

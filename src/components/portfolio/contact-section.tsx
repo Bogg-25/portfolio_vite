@@ -7,8 +7,8 @@ const contactItems = [
   {
     icon: Mail,
     label: "Email",
-    value: "Achraf_fariss@um5.ac.ma",
-    href: "mailto:Achraf_fariss@um5.ac.ma",
+    value: "farissachraf@hotmail.com",
+    href: "mailto:farissachraf@hotmail.com",
     hint: "Best way to reach me",
   },
   {
@@ -143,7 +143,7 @@ export function ContactSection() {
             <div className="flex flex-wrap gap-3">
               <Button
                 size="lg"
-                onClick={() => window.open("mailto:Achraf_fariss@um5.ac.ma")}
+                onClick={() => window.open("mailto:farissachraf@hotmail.com")}
                 className="gap-2 flex-1"
               >
                 <Mail className="h-4 w-4" />

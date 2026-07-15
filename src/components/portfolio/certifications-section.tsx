@@ -8,48 +8,56 @@ const certifications = [
     issuer: "Quality Standards",
     color: "cyan",
     url: "https://www.udemy.com/certificate/UC-3f310741-487a-4a2f-a207-163a2cb79d49/",
+    logo: "/Udemy.png",
   },
   {
     name: "Power BI - Data Analytics & Visualization",
-    issuer: "Microsoft",
+    issuer: "Udemy",
     color: "blue",
     url: "#",
+    logo: "/Udemy.png",
   },
   {
     name: "SAP S/4HANA - Enterprise Resource Planning",
-    issuer: "SAP",
+    issuer: "Udemy",
     color: "violet",
     url: "#",
+    logo: "/Udemy.png",
   },
   {
     name: "MS Project - Professional Project Management",
-    issuer: "Microsoft",
+    issuer: "Udemy",
     color: "sky",
     url: "https://www.udemy.com/certificate/UC-e16c4e8c-80a1-47c7-8432-4abacf2fdb0c/",
+    logo: "/Udemy.png",
   },
   {
     name: "Python - Programming & Automation",
-    issuer: "Python Institute",
+    issuer: "Udemy",
     color: "emerald",
     url: "https://www.udemy.com/certificate/UC-c9a104d0-0106-4233-a337-acec3763ad1b/",
+    logo: "/Udemy.png",
   },
   {
     name: "CATIA - 3D Industrial Design",
-    issuer: "Dassault Systemes",
+    issuer: "Udemy",
     color: "amber",
     url: "https://www.udemy.com/certificate/UC-9efcf7af-0f6b-485e-94a4-58c76cd031a7/",
+    logo: "/Udemy.png",
   },
   {
     name: "Supply Chain Management",
-    issuer: "Industry Certification",
+    issuer: "Udemy",
     color: "blue",
     url: "#",
+    logo: "/Udemy.png",
   },
   {
     name: "Lean, Six Sigma, Quality Management",
-    issuer: "Industry Certification",
+    issuer: "Udemys",
     color: "blue",
     url: "https://www.udemy.com/certificate/UC-edab2ed3-139f-49a1-a4f3-b2dd099d34e8/",
+    logo: "/Udemy.png",
   },
 ];
 
@@ -100,9 +108,13 @@ export function CertificationsSection() {
               className="glass-card p-5 hover:border-cyan-500/20 transition-all flex items-start gap-4"
             >
               <div
-                className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border ${colorMap[cert.color]}`}
+                className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 border ${colorMap[cert.color]} overflow-hidden`}
               >
-                <Award className="h-5 w-5" />
+                {"logo" in cert && cert.logo ? (
+                  <img src={cert.logo} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <Award className="h-5 w-5" />
+                )}
               </div>
               <div className="flex-1 mt-0.5">
                 <p className="text-sm font-semibold text-white leading-snug pr-2">

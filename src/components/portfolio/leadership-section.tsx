@@ -59,8 +59,8 @@ export function LeadershipSection() {
           className="glass-card p-8 md:p-10 hover:border-cyan-500/20 transition-all mb-8"
         >
           <div className="flex items-start gap-6 mb-8">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 border border-cyan-500/30 flex items-center justify-center flex-shrink-0">
-              <Users className="h-8 w-8 text-cyan-400" />
+            <div className="w-20 h-20 rounded-2xl bg-white border border-cyan-500/30 flex items-center justify-center flex-shrink-0 overflow-hidden">
+              <img src="/LGD LOGO.png" alt="The Legends Club" className="w-full h-full object-contain scale-110" />
             </div>
             <div>
               <h3 className="text-2xl font-bold text-white">Founder</h3>

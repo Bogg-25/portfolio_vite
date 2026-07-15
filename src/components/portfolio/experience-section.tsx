@@ -17,6 +17,7 @@ const experiences = [
     period: "04/2025 - 07/2025",
     type: "Internship",
     color: "cyan",
+    logo: "/lear-logo.png",
     achievements: [
       "Enhanced the Quality Management System in the Receiving Department in compliance with IATF 16949:2016 and ISO 9001:2015 standards",
       "Standardized documentation by revising 6 Quality Control Instructions and developing a new procedure for the Ci62 spectrophotometer, reducing inspection time from 14 to 8 minutes and interpretation errors by 60%",
@@ -32,6 +33,7 @@ const experiences = [
     period: "07/2022",
     type: "Internship",
     color: "cyan",
+    logo: "/soremar_group_logo.jpeg",
     achievements: [
       "Gained hands-on exposure to maritime electronic systems including communication, navigation, and surveillance equipment",
       "Observed maintenance, installation, and troubleshooting processes of onboard electronic systems under supervision of experienced technicians",
@@ -45,7 +47,7 @@ const experiences = [
     website: null,
     location: "Tetouan, Morocco",
     period: "07/2021 - 09/2021",
-    type: "Part-time",
+    type: "Full-time",
     color: "blue",
     achievements: [
       "Managed daily store operations and inventory control",
@@ -98,8 +100,16 @@ export function ExperienceSection() {
             >
               <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0">
-                    <Briefcase className="h-5 w-5 text-cyan-400" />
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-500/20 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    {"logo" in exp && exp.logo ? (
+                      <img
+                        src={exp.logo}
+                        alt={`${exp.company} logo`}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Briefcase className="h-5 w-5 text-cyan-400" />
+                    )}
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
