@@ -59,6 +59,13 @@ const certifications = [
     url: "https://www.udemy.com/certificate/UC-edab2ed3-139f-49a1-a4f3-b2dd099d34e8/",
     logo: "/Udemy.png",
   },
+  {
+    name: "Master ISO 9000: Analyze, Apply, and Achieve Certification",
+    issuer: "EDUCBA",
+    color: "cyan",
+    url: "https://coursera.org/share/f74b1a0e6f88293e47c090d67e08f3f5",
+    logo: "/educba.png",
+  },
 ];
 
 const colorMap: Record<string, string> = {
