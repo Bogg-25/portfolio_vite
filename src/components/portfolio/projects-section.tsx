@@ -11,6 +11,7 @@ import {
   ArrowUpRight,
   Briefcase,
   GraduationCap,
+  FileText,
   Trophy,
   type LucideIcon,
 } from "lucide-react";
@@ -477,7 +478,7 @@ function ProjectCard({
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground/40 hover:text-white transition-colors duration-200"
             >
               Article PDF
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <FileText className="w-3 h-3" />
             </a>
           )}
           {project.certUrl && (
@@ -488,7 +489,7 @@ function ProjectCard({
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground/40 hover:text-white transition-colors duration-200"
             >
               Certificate
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <FileText className="w-3 h-3" />
             </a>
           )}
         </div>

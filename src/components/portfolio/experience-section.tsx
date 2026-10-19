@@ -10,6 +10,21 @@ import { Badge } from "@/components/ui/badge";
 
 const experiences = [
   {
+    role: "Industrial Project Engineer – AMR Integration (PFA Intern)",
+    company: "Expleo Group – Manufacturing Engineering Excellence",
+    website: "https://www.expleo.com",
+    location: "Tangier, Morocco",
+    period: "06/2026 - 08/2026",
+    type: "Internship",
+    color: "cyan",
+    logo: "/expleo.png",
+    achievements: [
+      "Led the industrialization of an AMR/AGV logistics system for Stellantis' multi-powertrain Smart Car platform, targeting a doubling of production capacity through existing flow diagnosis, technology benchmarking, and a functional specification document (CdCF)",
+      "Designed a real-time web supervision application for the AMR fleet (performance, obstacle detection, improvement axes) to ensure reliable mass deployment",
+      "Tools: Project management • Functional specification (CdCF) • Flow analysis • Mobile robotics (AMR/AGV) • Fleet management • MES integration • Techno-economic study (ROI)",
+    ],
+  },
+  {
     role: "Quality Reception Intern",
     company: "Lear Corporation TRIM 1",
     website: "https://www.lear.com",

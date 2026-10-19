@@ -4,6 +4,20 @@ import { Badge } from "@/components/ui/badge";
 
 const certifications = [
   {
+    name: "Industry 4.0: PLM, Value Chain, and Smart Factory",
+    issuer: "L&T EduTech",
+    color: "cyan",
+    url: "https://www.coursera.org/account/accomplishments/certificate/639YJT2LIF05",
+    logo: "/l&tedutech.png",
+  },
+  {
+    name: "Six Sigma Yellow Belt",
+    issuer: "6SigmaStudy",
+    color: "emerald",
+    url: "https://c46e136a583f7e334124-ac22991740ab4ff17e21daf2ed577041.ssl.cf1.rackcdn.com/Certificate/SixSigmaYellowBelt-AchrafFariss-1200990-20261019.pdf",
+    logo: "/6sigmastudy_logo.jpeg",
+  },
+  {
     name: "ISO 9001 - Quality Management Auditor",
     issuer: "Quality Standards",
     color: "cyan",

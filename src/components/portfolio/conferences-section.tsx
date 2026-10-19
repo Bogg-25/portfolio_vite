@@ -7,6 +7,7 @@ import {
   Mic,
   Trophy,
   Flame,
+  FileText,
   type LucideIcon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -298,7 +299,7 @@ function EventCard({ event, index }: { event: Event; index: number }) {
               className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground/40 hover:text-white transition-colors duration-200 ml-auto"
             >
               Certificate
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <FileText className="w-3 h-3" />
             </a>
           )}
         </div>
